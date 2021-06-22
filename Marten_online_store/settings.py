@@ -27,10 +27,10 @@ INSTALLED_APPS = [
     'django_extensions',
     'taggit',
 
-    'blog_store',
-    'cats_food',
-    'dogs_food',
-    'fishs_food',
+    'blog_store.apps.BlogStoreConfig',
+    'cats_food.apps.CatsFoodConfig',
+    'dogs_food.apps.DogsFoodConfig',
+    'fishs_food.apps.FishsFoodConfig',
 
 ]
 
@@ -44,7 +44,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = 'Marten_online_store.urls'
 
 TEMPLATES = [
     {
@@ -62,7 +62,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = 'Marten_online_store.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
