@@ -1,6 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
+from django.views import View
+from taggit.models import Tag
 
 from .models import Blog, Category
 
@@ -34,3 +36,15 @@ def get_category(request, category_id):
 
     html_template = loader.get_template('blog_store/blog_category.html')
     return HttpResponse(html_template.render(context, request))
+
+
+class TagView(View):
+    def get(self, request, slug, *args, **kwargs):
+        tag = get_object_or_404(Tag, slug=slug)
+        blog = Blog.objects.filter(tag=tag)
+        common_tags = Blog.tag.most_common()
+        return render(request, 'blog_store/tag.html', context={
+            'title': f'#ТЕГ {tag}',
+            'blog': blog,
+            'common_tags': common_tags
+        })
