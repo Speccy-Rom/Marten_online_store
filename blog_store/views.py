@@ -21,7 +21,7 @@ def all_blogs(request):
     context['blogs'] = blogs
     context['categories'] = categories
 
-    html_template = loader.get_template('blog_store/blog.html')
+    html_template = loader.get_template('blog_store/blog-leftsidebar.html')
     return HttpResponse(html_template.render(context, request))
 
 
