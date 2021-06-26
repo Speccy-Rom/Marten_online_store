@@ -17,9 +17,7 @@ def index(request):
 def all_blogs(request):
     context = {}
     blogs = Blog.objects.all()
-    categories = Category.objects.all()
     context['blogs'] = blogs
-    context['categories'] = categories
 
     html_template = loader.get_template('eStore_blog/blog-leftsidebar.html')
     return HttpResponse(html_template.render(context, request))
@@ -28,10 +26,8 @@ def all_blogs(request):
 def get_category(request, category_id):
     context = {}
     blogs = Blog.objects.filter(category_id=category_id)
-    categories = Category.objects.all()
     category = Category.objects.get(pk=category_id)
     context['blogs'] = blogs
-    context['categories'] = categories
     context['category'] = category
 
     html_template = loader.get_template('eStore_blog/blog_category.html')

@@ -42,22 +42,14 @@
             <div class="row">
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-5">
                     <div class="logo pt-39">
-                        <a href="index.html"><img alt="" src="/static/assets/img/logo/logo.png"></a>
+                        <a href="{% url 'index' %}"><img alt="" src="/static/assets/img/logo/logo.png"></a>
                     </div>
                 </div>
                 <div class="col-xl-8 col-lg-7 d-none d-lg-block">
                     <div class="main-menu text-center">
                         <nav>
                             <ul>
-                                <li><a href="index.html">HOME</a>
-                                    <ul class="submenu">
-                                        <li>
-                                            <a href="index.html">home version 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="index-2.html">home version 2</a>
-                                        </li>
-                                    </ul>
+                                <li><a href="{% url 'index' %}">HOME</a>
                                 </li>
                                 <li class="mega-menu-position"><a href="shop-page.html">Food</a>
                                     <ul class="mega-menu">
@@ -134,21 +126,10 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="blog-leftsidebar.html">Blog</a>
-                                    <ul class="submenu">
-                                        <li>
-                                            <a href="blog.html">blog page</a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-leftsidebar.html">blog left sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-details.html">blog details</a>
-                                        </li>
-                                    </ul>
+                                <li><a href="{% url 'all_blogs' %}">Blog</a>
                                 </li>
-                                <li><a href="about-us.html">ABOUT</a></li>
-                                <li><a href="contact.html">contact us</a></li>
+                                <li><a href="#">ABOUT</a></li>
+                                <li><a href="#">contact us</a></li>
                             </ul>
                         </nav>
                     </div>
