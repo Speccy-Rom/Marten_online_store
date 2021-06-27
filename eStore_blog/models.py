@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy
 from taggit.managers import TaggableManager
 
 
@@ -15,6 +16,9 @@ class Blog(models.Model):
     tag = TaggableManager()
     is_published = models.BooleanField(default=True)
 
+    def get_absolute_url(self):
+        return reverse_lazy('view_post', kwargs={'blog_id': self.pk})
+
     def __str__(self):
         return self.title
 
@@ -25,7 +29,10 @@ class Blog(models.Model):
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=150, db_index=True, verbose_name='Категории')
+    title = models.CharField(max_length=150, db_index=True, verbose_name='Назваие категории')
+
+    def get_absolute_url(self):
+        return reverse_lazy('category', kwargs={'category_id': self.pk})
 
     def __str__(self):
         return self.title

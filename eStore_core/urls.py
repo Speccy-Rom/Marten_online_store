@@ -7,8 +7,7 @@ from eStore_blog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('blog/', include('eStore_blog.urls'), name='blog'),
+    path('', include('eStore_blog.urls'), name='blog'),
     path('store/', include('eStore.urls'), name='store'),
     path('api/v1/', include('eStore_api.urls'), name='api'),
 ]

@@ -3,15 +3,24 @@ from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.views import View
 from taggit.models import Tag
+from django.views.generic import ListView
 
 from .models import Blog, Category
 
 
-def index(request):
-    context = {}
+class IndexBlog(ListView):
+    model = Blog
+    template_name = 'index.html'
+    context_object_name = 'blogs'
 
-    html_template = loader.get_template('index.html')
-    return HttpResponse(html_template.render(context, request))
+
+
+
+# def index(request):
+#     context = {}
+#
+#     html_template = loader.get_template('index.html')
+#     return HttpResponse(html_template.render(context, request))
 
 
 def all_blogs(request):
@@ -31,6 +40,14 @@ def get_category(request, category_id):
     context['category'] = category
 
     html_template = loader.get_template('eStore_blog/blog_category.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+def view_post(request, blog_id):
+    context = {}
+    new_post = get_object_or_404(Blog, pk=blog_id)
+    context['new_post'] = new_post
+    html_template = loader.get_template('eStore_blog/blog-details.html')
     return HttpResponse(html_template.render(context, request))
 
 

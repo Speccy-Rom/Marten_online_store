@@ -1,7 +1,7 @@
 <div class="shop-list-style mt-20">
     <ul>
         {% for cat in categories %}
-            <li><a href="{% url 'category' cat.pk %}">{{ cat.title }}</a></li>
+            <li><a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a></li>
         {% endfor %}
         <br>
     </ul>

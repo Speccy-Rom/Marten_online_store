@@ -10,10 +10,10 @@
          style="background-image:url(/static/assets/img/banner/banner-2.jpg);">
         <div class="container">
             <div class="breadcrumb-content text-center">
-                <h2>Blog Left sidebar</h2>
+                <h2>Category blog</h2>
                 <ul>
-                    <li><a href="index.html">home</a></li>
-                    <li class="active">Blog Left sidebar</li>
+                    <li><a href="{% url 'index' %}">home</a></li>
+                    <li class="active">Category blog</li>
                 </ul>
             </div>
         </div>
@@ -27,7 +27,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="blog-wrapper mb-30 gray-bg">
                                     <div class="blog-img hover-effect">
-                                        <a href="blog-details.html"><img alt="" src="/media/{{ blog.photo }}"></a>
+                                        <a href="{{ blog.get_absolute_url }}"><img alt="" src=" {{ blog.photo.url }}"></a>
                                     </div>
                                     <div class="blog-content">
                                         <div class="blog-meta">
@@ -36,11 +36,11 @@
                                                 <li>{{ blog.created_at }}</li>
                                                 <br>
                                                 {% for tag in blog.tag.all %}
-                                                    <a href="" class="mr-1 badge badge-info">#{{ tag }}</a>
+                                                    <a href="#" class="mr-1 badge badge-info">#{{ tag }}</a>
                                                 {% endfor %}
                                             </ul>
                                         </div>
-                                        <h4><a href="blog-details.html">{{ blog.title }}</a></h4>
+                                        <h4><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h4>
                                     </div>
                                 </div>
                             </div>
