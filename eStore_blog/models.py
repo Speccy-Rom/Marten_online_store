@@ -17,7 +17,7 @@ class Blog(models.Model):
     is_published = models.BooleanField(default=True)
 
     def get_absolute_url(self):
-        return reverse_lazy('view_post', kwargs={'blog_id': self.pk})
+        return reverse_lazy('view_post', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title
