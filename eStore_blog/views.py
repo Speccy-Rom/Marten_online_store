@@ -8,9 +8,13 @@ from django.views.generic import ListView, DeleteView
 from .models import Blog, Category
 
 
+def index_view(request):
+    return render(request, 'index.html', {})
+
+
 class IndexBlog(ListView):
     model = Blog
-    template_name = 'index.html'
+    template_name = 'home.html'
     context_object_name = 'blogs'
     extra_context = {'title': 'Home'}  # используем для статических данных, для динамических данных используем
 
@@ -68,9 +72,8 @@ class TagView(View):
 # def index(request):
 #     context = {}
 #
-#     html_template = loader.get_template('index.html')
+#     html_template = loader.get_template('eStore_blog/home.html')
 #     return HttpResponse(html_template.render(context, request))
-
 
 # def all_blogs(request):
 #     context = {}

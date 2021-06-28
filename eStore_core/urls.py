@@ -4,12 +4,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from eStore_blog import views
+from eStore_blog.views import index_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('eStore_blog.urls'), name='blog'),
-    path('store/', include('eStore.urls'), name='store'),
-    path('api/v1/', include('eStore_api.urls'), name='api'),
+    path('', index_view),
+    # path('', include('eStore_blog.urls'), name='blog'),
+#     path('store/', include('eStore.urls'), name='store'),
+#     path('api/v1/', include('eStore_api.urls'), name='api'),
 ]
 
 if settings.DEBUG:

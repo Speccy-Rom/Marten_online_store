@@ -48,7 +48,7 @@ ROOT_URLCONF = 'eStore_core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'eStore_blog/templates/eStore_blog',  BASE_DIR / 'estore_ui/build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,6 +111,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'eStore_core/static'),
+    os.path.join(BASE_DIR, 'estore_ui/build/static'),
+
 ]
 
 
