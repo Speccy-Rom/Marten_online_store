@@ -9,7 +9,7 @@ from .models import Blog, Category
 
 
 def index_view(request):
-    return render(request, 'index.html', {})
+    return render(request, 'eStore_blog/index.html', {})
 
 
 class IndexBlog(ListView):
