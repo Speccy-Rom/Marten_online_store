@@ -12,6 +12,7 @@ User = get_user_model()
 
 class Category(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название категории")
+    description = RichTextUploadingField(verbose_name='Описание', null=True)
     slug = models.SlugField(unique=True)
 
     def __str__(self):
@@ -29,6 +30,7 @@ class Category(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название бренда / марки")
+    description = RichTextUploadingField(verbose_name='Описание', null=True)
     slug = models.SlugField(unique=True)
 
     def __str__(self):
@@ -66,5 +68,49 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class RatingStar(models.Model):
+    """Звезда рейтинга"""
+    value = models.SmallIntegerField(default=0, verbose_name="Значение")
+
+    def __str__(self):
+        return self.value
+
+    class Meta:
+        verbose_name = "Звезда рейтинга"
+        verbose_name_plural = "Звезды рейтинга"
+        ordering = ['-value']
+
+
+class Rating(models.Model):
+    """Рейтинг"""
+    ip = models.CharField("IP адрес", max_length=15)
+    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Продукт", related_name="ratings")
+
+    def __str__(self):
+        return f"{self.star} - {self.product}"
+
+    class Meta:
+        verbose_name = "Рейтинг"
+        verbose_name_plural = "Рейтинги"
+
+
+class Review(models.Model):
+    """Отзывы"""
+    email = models.EmailField(verbose_name='Электронный адрес')
+    name = models.CharField("Имя", max_length=100, verbose_name='Имя')
+    description = RichTextUploadingField(verbose_name='Описание', null=True)
+    parent = models.ForeignKey(
+        'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True, related_name='children')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Продукт", related_name='reviews')
+
+    def __str__(self):
+        return f"{self.name} - {self.product}"
+
+    class Meta:
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"
 
 
