@@ -1,7 +1,7 @@
 from django.urls import path
-from eStore import views
+from .views import ProductsList
 
 urlpatterns = [
-    path('', views.all_cats, name='all_cats'),
+    path('', ProductsList.as_view(), name='products-list'),
 
 ]

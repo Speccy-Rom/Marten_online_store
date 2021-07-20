@@ -115,10 +115,11 @@ class Review(models.Model):
 
 
 class CartProduct(models.Model):
+
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
-    qty = models.PositiveIntegerField(default=1, verbose_name='Количество товара')
     product = models.ForeignKey(Product, verbose_name='Товар', on_delete=models.CASCADE)
+    qty = models.PositiveIntegerField(default=1)
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
 
     def __str__(self):
@@ -130,6 +131,7 @@ class CartProduct(models.Model):
 
 
 class Cart(models.Model):
+
     owner = models.ForeignKey('Customer', null=True, verbose_name='Владелец', on_delete=models.CASCADE)
     products = models.ManyToManyField(CartProduct, blank=True, related_name='related_cart')
     total_products = models.PositiveIntegerField(default=0)
@@ -140,26 +142,20 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
-    def save(self, *args, **kwargs):
-        if self.id:
-            self.total_products = self.products.count()
-            self.final_price = sum([cproduct.final_price for cproduct in self.products.all()])
-        super().save(*args, **kwargs)
-
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, verbose_name='Номер телефона', null=True, blank=True)
     address = models.CharField(max_length=255, verbose_name='Адрес', null=True, blank=True)
-    orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_order', blank=True)
+    orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_order')
 
     def __str__(self):
-        if not (self.user.first_name and self.user.last_name):
-            return self.user.username
         return "Покупатель: {} {}".format(self.user.first_name, self.user.last_name)
 
 
 class Order(models.Model):
+
     STATUS_NEW = 'new'
     STATUS_IN_PROGRESS = 'in_progress'
     STATUS_READY = 'is_ready'
@@ -180,8 +176,7 @@ class Order(models.Model):
         (BUYING_TYPE_DELIVERY, 'Доставка')
     )
 
-    customer = models.ForeignKey(Customer, verbose_name='Покупатель', related_name='related_orders',
-                                 on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, verbose_name='Покупатель', related_name='related_orders', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255, verbose_name='Имя')
     last_name = models.CharField(max_length=255, verbose_name='Фамилия')
     phone = models.CharField(max_length=20, verbose_name='Телефон')

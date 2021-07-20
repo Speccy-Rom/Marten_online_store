@@ -13,6 +13,7 @@ class BlogAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
+@admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     form = BlogAdminForm
     prepopulated_fields = {'url': ('title',)}
@@ -23,11 +24,8 @@ class BlogAdmin(admin.ModelAdmin):
     list_filter = ('is_published', 'category')
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
     list_display_links = ('id', 'title')
     search_fields = ('title',)
-
-
-admin.site.register(Blog, BlogAdmin)
-admin.site.register(Category)

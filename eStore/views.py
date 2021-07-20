@@ -1,10 +1,21 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
+from django.views.generic import ListView, DetailView
+
+from .models import *
 
 
-def all_cats(request):
-    context = {}
+class ProductsList(ListView):
+    model = Product
+    # template_name = 'eStore/product_list.html'
+    context_object_name = 'products'
+    # extra_context = {'title': 'Каталог продуктов'}
 
-    html_template = loader.get_template('eStore_core/templates/home.html')
-    return HttpResponse(html_template.render(context, request))
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProductsList, self).get_context_data(**kwargs)
+        context['title'] = 'Каталог продуктов'
+        return context
+
+    def get_queryset(self):
+        return Product.objects.filter(brand__name="Бренд-1")
