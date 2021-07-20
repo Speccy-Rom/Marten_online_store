@@ -19,3 +19,14 @@ class ProductsList(ListView):
 
     def get_queryset(self):
         return Product.objects.filter(brand__name="Бренд-1")
+
+
+class ProductDetail(DetailView):
+    model = Product
+    # template_name = 'eStore/product_detail.html'
+    context_object_name = 'product'
+    allow_empty = False
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetail, self).get_context_data(**kwargs)
+        context['title'] = Product.objects.get(slug__iexact=self.kwargs['slug'])
