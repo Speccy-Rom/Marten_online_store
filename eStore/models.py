@@ -123,7 +123,7 @@ class CartProduct(models.Model):
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
 
     def __str__(self):
-        return "Продукт: {} (для корзины)".format(self.product.title)
+        return f"Продукт: {self.product.title} (для корзины)"
 
     def save(self, *args, **kwargs):
         self.final_price = self.qty * self.product.price
@@ -151,7 +151,7 @@ class Customer(models.Model):
     orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_order')
 
     def __str__(self):
-        return "Покупатель: {} {}".format(self.user.first_name, self.user.last_name)
+        return f"Покупатель: {self.user.first_name} {self.user.last_name}"
 
 
 class Order(models.Model):
